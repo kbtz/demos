@@ -1,0 +1,29 @@
+extend /frame
+
+block prepend title
+	| Service Rating
+
+block head
+	link(rel="stylesheet", href="service-rating.styl")
+
+block content
+	h2 How would you rate your experience?
+
+	svg(viewBox="0 0 133 100" class="rating-good")
+		defs
+			clipPath#clip-eye #[path]
+			clipPath#clip-eyebrow #[circle(cx=35 cy=45 r=7.8)]
+			symbol#eyecomp
+				path#eyebrow(clip-path="url(#clip-eyebrow)")
+				circle#eye(clip-path="url(#clip-eye)" cx="35" cy="45" r="6.5")
+		
+		circle#head(cx=50 cy=50 r=40)
+		g#face
+			use(href="#eyecomp")
+			use(href="#eyecomp" transform="scale(-1 1)" transform-origin="50 50")
+			path#mouth
+		
+		g#slider
+		
+	for rating in ratings
+		text= rating
