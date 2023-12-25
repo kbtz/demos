@@ -1,4 +1,4 @@
-json('index.pug.json')
+load(data)
 
 #container
 	width: 600px
@@ -7,7 +7,10 @@ json('index.pug.json')
 
 svg
 	outline: 1px solid salmon
-	fill:transparent
+	fill: transparent
+
+	circle
+		transition: all 300ms cubic-bezier(0.175, 0.885, 0.320, 1.275)
 
 	path
 		transition:
@@ -21,10 +24,17 @@ svg
 
 	#head
 		stroke-width: 4
-
+	
 	#face
 		stroke-width: 2.5
 		stroke-linecap: round
-
+	
 	#eye
 		transition: opacity 300ms ease-out
+
+	for rating, i in ratings
+		&.rating-{rating}
+			#mouth
+				d: 'path(%s)' % mouth[i]
+			#eyebrow
+				d: 'path(%s)' % eyebrow[i]

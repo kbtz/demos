@@ -1,16 +1,19 @@
-import { defineConfig } from 'vite'
-import pug from './pug.config'
+import pvg from 'pvg'
 
-export default defineConfig({
+/** @type {import('vite').UserConfig} */
+export default {
 	appType: 'mpa',
+	clearScreen: false,
 	plugins: [
-		pug.plugin({ pretty: true })
+		pvg.match('*/index.pug'),
 	],
 	build: {
 		outDir: '../pub',
+		target: 'esnext',
+		cssMinify: false,
 		emptyOutDir: true,
-		rollupOptions: {
-			input: pug.entries('*/index.pug'),
-		}
+	},
+	esbuild: {
+		target: 'esnext'
 	}
-})
+}
