@@ -1,4 +1,5 @@
-//- load data #[ratings, eyebox]
++load(data, { ratings })
+
 extend /demo-frame
 
 block prepend title
@@ -9,7 +10,7 @@ block head
 
 block content
 	h2 How would you rate your experience?
-	svg.rating-great(viewBox="0 0 133 100")
+	svg.rating-good(viewBox="0 0 133 100")
 		defs
 			clipPath#clip-eye #[path]
 			clipPath#clip-eyebrow #[circle(cx=35 cy=45 r=7.8)]
@@ -24,6 +25,13 @@ block content
 			path#mouth
 
 		g#slider
-		
-	//- for rating in ratings
-	//- 	b= rating
+	
+	script.
+		const svg = document.querySelector('svg')
+		function setRating(rating) {
+			svg.setAttribute('class', `rating-${rating}`)
+		}
+
+	for rating in ratings
+		button(onclick=`setRating('${rating}')`)
+			= rating

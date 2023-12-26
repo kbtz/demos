@@ -32,9 +32,16 @@ svg
 	#eye
 		transition: opacity 300ms ease-out
 
+	&.rating-great
+		#eye
+			opacity: 0
+
 	for rating, i in ratings
 		&.rating-{rating}
-			#mouth
-				d: 'path(%s)' % mouth[i]
 			#eyebrow
 				d: 'path(%s)' % eyebrow[i]
+			#clip-eye path
+				d: 'path(%s)' % join(' ', eyebrow[i], eyebox)
+			#mouth
+				d: 'path(%s)' % mouth[i]
+			
