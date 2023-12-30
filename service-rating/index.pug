@@ -1,5 +1,4 @@
 +load(data, { ratings })
-
 extend /demo-frame
 
 block prepend title
@@ -7,10 +6,13 @@ block prepend title
 
 block head
 	link(rel="stylesheet", href="index.styl")
+	script(type="module").
+		import './index.js'
+		
 
 block content
-	h2 How would you rate your experience?
-	svg.rating-good(viewBox="0 0 133 100")
+	h1 How would you rate your experience?
+	svg#smiley(viewBox="0 8 100 84")
 		defs
 			clipPath#clip-eye #[path]
 			clipPath#clip-eyebrow #[circle(cx=35 cy=45 r=7.8)]
@@ -24,14 +26,11 @@ block content
 			use(href="#eyecomp" transform="scale(-1 1)" transform-origin="50 50")
 			path#mouth
 
-		g#slider
-	
-	script.
-		const svg = document.querySelector('svg')
-		function setRating(rating) {
-			svg.setAttribute('class', `rating-${rating}`)
-		}
+	svg#slider(viewBox="0 0 100 30")
+		defs
+			g(id="star" transform="translate(9 9) translate(5 12)")
+				path.sparkle
+				path.outline
 
-	for rating in ratings
-		button(onclick=`setRating('${rating}')`)
-			= rating
+		for rating, index in ratings
+			use(href="#star" transform=`translate(${18 * index})`)
